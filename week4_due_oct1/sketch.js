@@ -4,64 +4,125 @@
 
 p5.disableFriendlyErrors = true; 
 let bDoExportSvg = false; 
-let lineLength = 20;
+let offset = 0;
 
-function setup(){
-  createCanvas(816, 1056); 
-
-  randomSeed(100);
+function setup() {
+  createCanvas(816, 1056);
 }
 
-function keyPressed(){
-  if (key == 'r'){
-    draw();
+function keyPressed() {
+  if (key == 'r') {
+    redraw();
   }
 
-  if (key == 's'){
+  if (key == 's') {
     bDoExportSvg = true;
     console.log("SVG export requested");
+    redraw();
   }
 }
 
-function mousePressed(){
-  lineLength = random(5, 60);
+function mousePressed() {
+  offset += 2;
+  redraw();
 }
 
-function draw(){
+function draw() {
 
-  background(255); 
+  background(255);
 
-  if (bDoExportSvg){
+  if (bDoExportSvg) {
     beginRecordSvg("myOutput.svg");
   }
+ 
+  push();
 
-  for(let i = 40; i < width; i += 80){
-    for(let j = 40; j < height; j += 80){
+  translate(width / 2, 190);
 
-      push();
+  stroke(0);
+  strokeWeight(1);
+  noFill();
 
-      translate(i, j);
+  for (let y = -130; y <= 130; y += 8) {
+    line(-150, y, 150, y);
+  }
+  
+  push();
+  rotate(radians(7 + offset % 6));
 
-      // Rotation changes according to the Y position
-      let angle = map(j, 40, height, 0, 180) 
-                  + frameCount * 0.1;
-
-      rotate(angle);
-
-      // Lines become thicker from top to bottom
-      let thickness = map(j, 40, height, 1, 5);
-      strokeWeight(thickness);
-
-      line(-lineLength, 0, lineLength, 0);
-
-      pop();
-
-    }
+  for (let y = -130; y <= 130; y += 8) {
+    line(-150, y, 150, y);
   }
 
-  if (bDoExportSvg){
+  pop();
+  pop();
+
+  push();
+
+  translate(width / 2, 520);
+
+  stroke(0);
+  strokeWeight(1);
+  noFill();
+
+  for (let r = 10; r <= 145; r += 10) {
+    ellipse(0, 0, r * 2, r * 2);
+  }
+
+  push();
+  translate(5 + offset % 8, 0);
+
+  for (let r = 10; r <= 145; r += 10) {
+    ellipse(0, 0, r * 2, r * 2);
+  }
+
+  pop();
+  pop();
+
+  push();
+
+  translate(width / 2, 850);
+
+  stroke(0);
+  strokeWeight(1);
+  noFill();
+
+  for (let y = -130; y <= 130; y += 10) {
+
+    beginShape();
+
+    for (let x = -150; x <= 150; x += 10) {
+
+      let curve = 25 * sin((x + 150) * 0.025);
+
+      vertex(x, y + curve);
+    }
+
+    endShape();
+  }
+
+  push();
+  rotate(radians(3 + offset % 4));
+
+  for (let y = -130; y <= 130; y += 10) {
+
+    beginShape();
+
+    for (let x = -150; x <= 150; x += 10) {
+
+      let curve = 25 * sin((x + 150) * 0.025);
+
+      vertex(x, y + curve);
+    }
+
+    endShape();
+  }
+
+  pop();
+  pop();
+
+  if (bDoExportSvg) {
     endRecordSvg();
     bDoExportSvg = false;
   }
-
 }
