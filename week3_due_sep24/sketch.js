@@ -1,7 +1,7 @@
-homework link:
-https://editor.p5js.org/YtX/sketches/K3R0DpWjZ
+//homework p5.js link:
+//https://editor.p5js.org/YtX/sketches/K3R0DpWjZ
 
-homework code：
+//homework code：
 let circleScale;
 let triangle1Scale;
 let triangle2Scale;
