@@ -1,18 +1,15 @@
+
 /**
  *
- * STEP 2: functions are values.
+ * STEP 2: Functions are values.
  *
- * A function can be stored in a variable, just like a number or a string.
- *
- *   drawCircle    -> the function itself (a value you can store or pass)
- *   drawCircle()  -> RUN the function right now
- *
- *   1 - draw circles
- *   2 - draw squares
+ * 1 - Draw circles
+ * 2 - Draw squares
+ * 3 - Draw triangles
  *
  */
 
-// No () here! We are storing the function, not running it.
+// Store the function without ()
 let currentShape = drawCircle;
 
 function setup() {
@@ -24,26 +21,41 @@ function draw() {
   fill('tomato');
   noStroke();
 
-  // Now we DO use (), because now we want to run whatever is stored.
+  // Run the currently selected function
   currentShape(width / 2, height / 2, 200);
 }
 
+// Draw a circle
 function drawCircle(x, y, size) {
   circle(x, y, size);
 }
 
+// Draw a square
 function drawSquare(x, y, size) {
   rectMode(CENTER);
   square(x, y, size);
 }
 
+// Draw a triangle
+function drawTriangle(x, y, size) {
+  triangle(
+    x, y - size / 2,
+    x - size / 2, y + size / 2,
+    x + size / 2, y + size / 2
+  );
+}
+
+// Switch shapes using keyboard
 function keyPressed() {
   if (key === '1') {
-    currentShape = drawCircle; // swap which function is stored
+    currentShape = drawCircle;
   }
+
   if (key === '2') {
     currentShape = drawSquare;
   }
-}
 
-// Try it: add a drawTriangle(x, y, size) function and switch to it with '3'.
+  if (key === '3') {
+    currentShape = drawTriangle;
+  }
+}

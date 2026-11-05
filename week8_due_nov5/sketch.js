@@ -56,7 +56,7 @@ async function setup() {
   // Camera
   video = createCapture(VIDEO);
   video.size(camWidth, camHeight);
-  video.hide();
+  // video.hide();
 
   // HandPose
   handPose = await ml5.handPose();
@@ -106,8 +106,8 @@ function updateHand() {
 
   let hand = hands[0];
 
-  let thumb = hand.keypoints[4];
-  let index = hand.keypoints[8];
+  let thumb = hand.thumb_tip[4];
+  let index = hand.index_tip[8];
 
   if (!thumb || !index) {
     wasPinching = false;
